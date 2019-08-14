@@ -18,16 +18,12 @@ const TodoList = () => {
       <h1>
         {state.todos.map(item => (
           <>
-            <div>
+            <div id={item.id} className="todo-list-item-false">
               {item.item}
             </div>
-            <button
-              onClick={() =>
-                dispatch({ type: 'COMPLETE_ITEM', payload: item.id })
-              }
-            >
-              Complete Item
-            </button>
+            <button id={item.id*2} className='button-false'
+              onClick={() => dispatch({ type: 'COMPLETE_ITEM', payload: item.id })}
+            >Complete Item</button>
           </>
         ))}
       </h1>
@@ -43,7 +39,14 @@ const TodoList = () => {
       />
       <button
         onClick={() => dispatch({ type: 'ADD_ITEM', payload: newItemText })}
-      >new item</button>
+      >Add Item</button>
+
+      <br />
+      <br />
+
+      <button
+        onClick={() => dispatch({ type: 'CLEAR_ITEMS' })}
+      >Clear Items</button>
     </div>
   );
 };

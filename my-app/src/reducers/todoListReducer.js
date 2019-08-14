@@ -41,10 +41,30 @@ export const todoListReducer = (state, action) => {
           return item;
         }
       })
+      completedItems.map(item => {
+        if(item.id === action.payload) {
+          document.getElementById(item.id).classList.toggle('todo-list-item-true');
+          console.log(action.payload);
+          document.getElementById(item.id*2).classList.toggle('button-true');
+        }
+      })
       return {
         ...state,
         todos: completedItems
       };
+    case 'CLEAR_ITEMS':
+      console.log(document.querySelectorAll('.todo-list-item-true'));
+      let nodeList = document.querySelectorAll('.todo-list-item-true');
+      console.log(Array.prototype.slice.call(nodeList));
+      let arr = Array.prototype.slice.call(nodeList);
+      arr.map(item => {
+        item.classList.add('invisible');
+      })
+      let buttonTrue = document.querySelectorAll('.button-true');
+      let arrButtonTrue = Array.prototype.slice.call(buttonTrue);
+      arrButtonTrue.map(item => {
+        item.classList.add('invisible');
+      })
     default:
       return state;
   }
