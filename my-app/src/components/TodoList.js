@@ -14,43 +14,37 @@ const TodoList = () => {
   };
 
   return (
-  <div>
-
-
     <div>
-      {!state.editing ? (
-        <h1>
-          {state.todos.map(item => (
-            <>
+      <h1>
+        {state.todos.map(item => (
+          <>
             <div>
               {item.item}
             </div>
-        <button
-          onClick={() => dispatch({ type: 'TOGGLE_EDITING' })}
-        >new item</button>
-        </>
+            <button
+              onClick={() =>
+                dispatch({ type: 'COMPLETE_ITEM', payload: item.id })
+              }
+            >
+              Complete Item
+            </button>
+          </>
         ))}
       </h1>
-    ) : (
-      <div>
-        <input
-          className="item-input"
-          type="text"
-          name="newItemText"
-          value={newItemText}
-          onChange={handleChanges}
-        />
-        <button
-          onClick={() =>
-            dispatch({ type: 'UPDATE_ITEM', payload: newItemText })
-          }
-        >
-          Update Item
-        </button>
-      </div>
-    )}
+
+      <br />
+
+      <input
+        className="item-input"
+        type="text"
+        name="newItemText"
+        value={newItemText}
+        onChange={handleChanges}
+      />
+      <button
+        onClick={() => dispatch({ type: 'ADD_ITEM', payload: newItemText })}
+      >new item</button>
     </div>
-  </div>
   );
 };
 

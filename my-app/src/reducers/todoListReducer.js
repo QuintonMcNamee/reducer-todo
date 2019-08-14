@@ -3,43 +3,47 @@ export const initialState = {
     {
       item: 'Learn about reducers',
       completed: false,
-      editing: false,
       id: 3892987589
     },
     {
       item: 'Do reducers project',
       completed: false,
-      editing: false,
       id: 3892987590
     },
     {
       item: 'Celebrate',
       completed: false,
-      editing: false,
       id: 3892987591
     }
-  ],
-  newTodo:
-    {
-      item: '',
-      completed: false,
-      editing: false,
-      id: new Date()
-    }
+  ]
 }
 
 export const todoListReducer = (state, action) => {
   switch (action.type) {
-    case 'TOGGLE_EDITING':
-      return {
-        ...state,
-        editing: !state.todos.editing
-      };
-    case 'UPDATE_ITEM':
-      return {
-        ...state,
+    case 'ADD_ITEM':
+      const newItem = {
         item: action.payload,
-        editing: !state.todos.editing
+        completed: false,
+        id: new Date()
+      }
+      return {
+        ...state,
+        todos: [...state.todos, newItem]
+      };
+    case 'COMPLETE_ITEM':
+      const completedItems = state.todos.map(item => {
+        if(item.id === action.payload) {
+          return {
+            ...item,
+            completed: !item.completed
+          }
+        } else {
+          return item;
+        }
+      })
+      return {
+        ...state,
+        todos: completedItems
       };
     default:
       return state;
