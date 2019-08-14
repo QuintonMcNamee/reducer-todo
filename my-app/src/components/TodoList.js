@@ -18,10 +18,10 @@ const TodoList = () => {
       <h1>
         {state.todos.map(item => (
           <>
-            <div id={item.id} className="todo-list-item-false">
+            <div key={item.id} className={ item.completed === true ? "todo-list-item-true" : null }>
               {item.item}
             </div>
-            <button id={item.id*2} className='button-false'
+            <button
               onClick={() => dispatch({ type: 'COMPLETE_ITEM', payload: item.id })}
             >Complete Item</button>
           </>
